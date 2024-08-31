@@ -1,0 +1,111 @@
+Users
+    First Name
+    Last Name
+    Email
+    Password
+    Country Code
+    Phone Number
+    Gender
+    Image(nullable)
+    Address
+    District
+    State
+    Country
+    timestamps
+
+Roles
+    Name
+    Slug
+    timestamps
+
+User_roles(roles assigned to users tb)
+   
+    userId
+    RoleId
+    timestamps
+
+products
+   
+    Name
+    description
+    image
+    categoryId
+    sellerId
+    currency
+    price
+    quantity
+    selledQuantity
+    timestamps
+
+category
+   
+    Name
+    description
+    image
+    timestamps
+
+seller
+   
+    Slug(slugify)
+    First Name
+    Last Name
+    Email
+    Password
+    Country Code
+    Phone Number
+    Gender
+    Image(nullable)
+    Address
+    District
+    State
+    Country
+    userId(nullable)
+
+
+shopping cart
+   
+    userId
+    productId
+    quantity
+    timestamps
+
+wishlist
+   
+    userId
+    productId
+    quantity
+    timestamps
+
+order
+   
+    userId
+    currency
+    orderAmount
+    paymentStatus
+    orderStatus
+    timestamps
+
+ordered_products(list of products in a single order)
+   
+    userId
+    orderId
+    quantity
+    productPrice
+    totalProductPrice
+    productIdcategoryId
+    timestamps
+
+review and rating
+    orderId
+    productId
+    userId
+    rating
+    comment
+    attachment
+
+Country
+    name
+    dialCode
+    currencyName
+    currencyCode
+    currencySymbol
