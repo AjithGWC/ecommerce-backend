@@ -3,7 +3,7 @@ const modelMiddleware = require("../../middlewares/modelMiddleware/modelMiddlewa
 const authUserMiddleware = require("../../middlewares/authUserMiddleware");
 
 const category = express.Router();
-category.use(authUserMiddleware);
+
 category.use(modelMiddleware.modelMiddleware);
 
 const categoryMiddleware = require("../../middlewares/categoryMiddleware");

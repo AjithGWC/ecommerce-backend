@@ -6,7 +6,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' }); 
 
 const product = express.Router();
-product.use(authUserMiddleware);
+
 product.use(modelMiddleware.modelMiddleware);
 
 const productMiddleware = require("../../middlewares/productMiddleware");

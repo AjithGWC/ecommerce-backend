@@ -8,13 +8,12 @@ const authenticateAdmin = (req, res, next) => {
         return res.status(401).json({ error: "No active token." });
     }
 
-    // Remove "Bearer " prefix if it exists
     if (token.startsWith('Bearer ')) {
         token = token.replace('Bearer ', '');
     }
 
     try {
-        console.log(token); // Now logs the token without "Bearer "
+        console.log(token);
         const decoded = jwt.verify(token, jwtSecretKey);
 
         if (decoded.role !== 'admin') {

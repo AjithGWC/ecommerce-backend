@@ -6,7 +6,7 @@ const getProducts = async(req, res, next) => {
 };
 
 const createProduct = async(req, res, next) => {
-    const { Name, image, categoryId, sellerId, currency, price, quantity } = req.body;
+    const { Name, description, image, categoryId, sellerId, currency, price, quantity } = req.body;
     console.log(req.body);
 
     const requiredFields = [
@@ -55,7 +55,7 @@ const editProduct = async(req, res, next) => {
 };
 
 const updateProduct = async(req, res, next) => {
-    const { Name, image, categoryId, sellerId, currency, price, quantity } = req.body;
+    const { Name, description, image, categoryId, sellerId, currency, price, quantity } = req.body;
     const { id } = req.params;
 
     const requiredFields = [

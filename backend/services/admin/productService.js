@@ -1,5 +1,4 @@
 const productDao = require("../../Dao/admin/productDao");
-const mongoose = require('mongoose');
 
 const getProductsService = async(req, res, next) => {
     try{
@@ -13,15 +12,10 @@ const getProductsService = async(req, res, next) => {
 
 const createProductService = async(req, res, next) => {
     try{
-        const { Name, image, categoryId, sellerId, currency, price, quantity, selledQuantity } = req.body;
-console.log(req.body);
+        const { Name, description, image, categoryId, sellerId, currency, price, quantity, selledQuantity } = req.body;
+        console.log(req.body);
 
-        const categoryObjectId = new mongoose.Types.ObjectId(categoryId);
-        const sellerObjectId = new mongoose.Types.ObjectId(sellerId);
-
-        const { description } = req.body.description || "";
-
-        const data = await productDao.createProduct({ Name, description, image, categoryId: categoryObjectId, sellerId: sellerObjectId, currency, price, quantity, selledQuantity });
+        const data = await productDao.createProduct({ Name, description, image, categoryId, sellerId, currency, price, quantity, selledQuantity });
         return res.status(201).json(data);
     }catch(error){
         console.log(error);
@@ -42,15 +36,10 @@ const editUserService = async(req, res, next) => {
 
 const updateProductService = async(req, res, next) => {
     try{
-        const { Name, image, categoryId, sellerId, currency, price, quantity, selledQuantity } = req.body;
+        const { Name, description, image, categoryId, sellerId, currency, price, quantity, selledQuantity } = req.body;
         const { id } = req.params;
 
-        const categoryObjectId = new mongoose.Types.ObjectId(categoryId);
-        const sellerObjectId = new mongoose.Types.ObjectId(sellerId);
-
-        const description = req.body.description || "";
-
-        const data = await productDao.updateProduct({ id, Name, description, image, categoryId: categoryObjectId, sellerId: sellerObjectId, currency, price, quantity, selledQuantity });
+        const data = await productDao.updateProduct({ id, Name, description, image, categoryId, sellerId, currency, price, quantity, selledQuantity });
         return res.status(201).json(data);
     }catch(error){
         console.log(error);
