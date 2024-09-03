@@ -23,7 +23,7 @@ const userLogin = async(data) => {
         expiresIn: "1h",
         }
     );
-    return({ success: true, token });
+    return({ success: true, token, userId: user._id, role: user.role  });
 };
 
 module.exports = {

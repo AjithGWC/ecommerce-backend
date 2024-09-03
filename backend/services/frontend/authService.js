@@ -5,8 +5,25 @@ const userLogin = async(req, res, next) => {
         const { email, password } = req.body;
 
         const data = await authDao.userLogin({ email, password });
+        console.log(data);
+        
         if (data.success) {
+            
             res.cookie('token', data.token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'development',
+                sameSite: 'Strict',
+                path: '/'
+            });
+            
+            res.cookie('userId', data.userId, { 
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'development',
+                sameSite: 'Strict',
+                path: '/'
+            });
+
+            res.cookie('role', data.role, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'development',
                 sameSite: 'Strict',
@@ -26,6 +43,8 @@ const userLogin = async(req, res, next) => {
 const userLogout = async(req, res, next) => {
     try {
         res.cookie('token', '', { expires: new Date(0), httpOnly: true });
+        res.cookie('role', '', { expires: new Date(0), httpOnly: true });
+        res.cookie('user', '', { expires: new Date(0), httpOnly: true });
         res.status(200).json({ message: 'Logged out successfully' });
     } catch (error) {
         console.log(error);
