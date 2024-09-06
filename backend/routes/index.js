@@ -13,11 +13,18 @@ const product = require("../routes/admin/product");
 const category = require("../routes/admin/category");
 const seller = require("../routes/admin/seller");
 const country = require("../routes/admin/countryCode");
+const cart = require("../routes/frontend/cart");
 
 const app = express();
 
 const cors = require('cors');
 app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 app.use(express.json());
@@ -29,6 +36,7 @@ app.use("/admin", product);
 app.use("/admin", category);
 app.use("/admin", seller);  
 app.use("/admin", country);
+app.use("/", cart);
 
 function connectToDB(){
     mongoose.connect(MONGODB_URL,

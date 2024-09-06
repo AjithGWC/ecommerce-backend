@@ -8,14 +8,18 @@ const CartSchema = new Schema(
             ref: "User",
             required: true
         },
-        productId:{
-            type: String,
-            required: true
-        },
-        quantity:{
-            type: Number,
-            required: true
-        }
+        products: [
+            {
+                productId:{
+                    type: String,
+                    required: true
+                },
+                quantity:{
+                    type: Number,
+                    required: true
+                }
+            }
+        ]
     },
     { timestamps: true }
 );

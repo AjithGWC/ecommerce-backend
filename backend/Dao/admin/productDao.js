@@ -17,6 +17,8 @@ const createProduct = async(data) => {
 };
 
 const editProduct = async(id) => {
+    console.log(id);
+    
     try {
         const product = await productModel.Product.findOne({ _id: id });
         console.log(product);
