@@ -11,6 +11,18 @@ const getCartService = async (req, res, next) => {
     }
 };
 
+const getCartProductsService = async (req, res, next) => {
+    try {
+      const products = req.body; 
+      const cart = await cartDao.getCartProducts({ products });
+      return res.status(200).json(cart);
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  };
+  
+
 const createCartService = async (req, res, next) => {
     try {
         const { productId, quantity } = req.body;
@@ -37,6 +49,7 @@ const deleteCartService = async (req, res, next) => {
 
 module.exports = {
     getCartService,
+    getCartProductsService,
     createCartService,
     deleteCartService,
 };

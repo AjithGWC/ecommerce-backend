@@ -11,6 +11,28 @@ const getCart = async(req, res, next) => {
     next();
 };
 
+const getCartProducts = async (req, res, next) => {
+    const products = req.body;  // Expecting an array of objects { productId, quantity }
+
+    // Check if request body is an array
+    if (!Array.isArray(products)) {
+        return res.status(400).json({ error: 'Request body must be an array.' });
+    }
+
+    // Validate each product object in the array
+    for (const product of products) {
+        if (!product.productId || typeof product.productId !== 'string' || !product.productId.trim()) {
+            return res.status(400).json({ error: 'Each product must have a valid productId.' });
+        }
+
+        if (!Number.isInteger(product.quantity) || product.quantity <= 0) {
+            return res.status(400).json({ error: 'Each product must have a positive integer quantity.' });
+        }
+    }
+
+    next();
+};
+
 const createCart = async(req, res, next) => {
     const { productId, quantity } = req.body;
     const { userId } = req.params;
@@ -56,6 +78,7 @@ const deleteCart = async(req, res, next) => {
 
 module.exports = {
     getCart,
+    getCartProducts,
     createCart,
     deleteCart
 }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const cartModel = require("../../models/cartModel");
+const productModel = require("../../models/productModel");
 
 const getCart = async(data) => {
     try {
@@ -14,6 +15,36 @@ const getCart = async(data) => {
         throw new Error("Failed to fetch cart");
     }
 };
+
+const getCartProducts = async(data) => {
+    try {
+        const products = data.products; 
+        
+        const productDetails = [];
+
+        for (const item of products) {
+            
+            const product = await productModel.Product.findById(item.productId);
+            
+            if (!product) {
+            throw new Error(`Product not found: ${item.productId}`);
+            }
+    
+            productDetails.push({
+            productId: item.productId,
+            productName: product.Name, 
+            price: product.price, 
+            image: product.image,
+            quantity: item.quantity  
+            });
+        }
+    
+        return productDetails;
+    } catch (error) {
+        throw new Error("Failed to fetch cart products: " + error.message);
+    }
+};
+  
 
 const createCart = async (data) => {
     const { userId, productId, quantity } = data;
@@ -69,6 +100,7 @@ const deleteCart = async (data) => {
 
 module.exports = {
     getCart, 
+    getCartProducts,
     createCart,
     deleteCart
 };
