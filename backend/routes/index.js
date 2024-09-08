@@ -14,6 +14,7 @@ const category = require("../routes/admin/category");
 const seller = require("../routes/admin/seller");
 const country = require("../routes/admin/countryCode");
 const cart = require("../routes/frontend/cart");
+const wishlist = require("../routes/frontend/wishlist");
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use("/admin", category);
 app.use("/admin", seller);  
 app.use("/admin", country);
 app.use("/", cart);
+app.use("/", wishlist);
 
 function connectToDB(){
     mongoose.connect(MONGODB_URL,

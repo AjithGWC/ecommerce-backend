@@ -1,6 +1,4 @@
-const productModel = require("../models/cartModel");
 const mongoose = require('mongoose');
-
 
 const getCart = async(req, res, next) => {
     const { userId } = req.params;
@@ -12,14 +10,12 @@ const getCart = async(req, res, next) => {
 };
 
 const getCartProducts = async (req, res, next) => {
-    const products = req.body;  // Expecting an array of objects { productId, quantity }
+    const products = req.body;
 
-    // Check if request body is an array
     if (!Array.isArray(products)) {
         return res.status(400).json({ error: 'Request body must be an array.' });
     }
 
-    // Validate each product object in the array
     for (const product of products) {
         if (!product.productId || typeof product.productId !== 'string' || !product.productId.trim()) {
             return res.status(400).json({ error: 'Each product must have a valid productId.' });
@@ -52,33 +48,44 @@ const createCart = async(req, res, next) => {
     next();
 };
 
-// const updateCart = async(req, res, next) => {
-//     const { productId, quantity } = req.body;
-//     const { userId } = req.params;
+const productQuantityUpdate = async(req, res, next) => {
+    const { userId } = req.params || req.body;
+    const { productId, quantity } = req.body;
 
-//     if (typeof productId !== 'string' || productId.trim() === '') {
-//         return res.status(400).json({ error: 'productId should be a non-empty string.' });
-//       }
-    
-//       if (typeof quantity !== 'number' || isNaN(quantity) || quantity <= 0) {
-//         return res.status(400).json({ error: 'quantity must be a positive number.' });
-//       }
-    
-//     next();
-// };
+    if (!userId) {
+        return res.status(400).json({ message: 'User ID is required' });
+    }
 
-const deleteCart = async(req, res, next) => {
-    const { userId } = req.params;
-    
-    if(!userId || userId.trim() === ""){
-        return res.status(400).json({ error: `id is required and cannot be empty.` });
+    if (!productId) {
+        return res.status(400).json({ message: 'Product ID is required' });
+    }
+
+    if (quantity && isNaN(quantity)) {
+        return res.status(400).json({ message: 'Quantity must be a number' });
     }
     next();
 };
+
+const deleteProductCart = async(req, res, next) => {
+    const { userId } = req.params || req.body;
+    const { productId } = req.body;
+
+    if (!userId) {
+        return res.status(400).json({ message: 'User ID is required' });
+    }
+
+    if (!productId) {
+        return res.status(400).json({ message: 'Product ID is required' });
+    }
+
+    next();
+};
+
 
 module.exports = {
     getCart,
     getCartProducts,
     createCart,
-    deleteCart
+    productQuantityUpdate,
+    deleteProductCart
 }

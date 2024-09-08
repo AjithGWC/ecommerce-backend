@@ -11,7 +11,7 @@ const cartService = require("../../services/frontend/cartService");
 cart.get("/cart/:userId", [cartMiddleware.getCart], cartService.getCartService );
 cart.post("/cart/products", [cartMiddleware.getCartProducts], cartService.getCartProductsService);
 cart.post("/cart/:userId", [cartMiddleware.createCart], cartService.createCartService );
-cart.patch("/cart/product-update/:userId", [cartMiddleware.createCart], cartService.createCartService );
-cart.delete("/cart/product/:userId", [cartMiddleware.deleteCart], cartService.deleteCartService );
+cart.patch("/cart/product-update/:userId", [cartMiddleware.productQuantityUpdate], cartService.productQuantityUpdateService );
+cart.patch("/cart/product/:userId", [cartMiddleware.deleteProductCart], cartService.deleteProductCartService );
 
 module.exports = cart;

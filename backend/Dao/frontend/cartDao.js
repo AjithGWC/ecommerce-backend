@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const cartModel = require("../../models/cartModel");
 const productModel = require("../../models/productModel");
 
@@ -74,33 +73,51 @@ const createCart = async (data) => {
     }
 };
 
-const deleteCart = async (data) => {
+const productQuantityUpdate = async (data) => {
+    const { userId, productId, quantity } = data;
+
+    try {
+        console.log("1");
+        
+        const cart = await cartModel.Cart.findOne({ userId: userId });
+        console.log("2");
+        if (!cart) return res.status(404).json({ message: 'Cart not found' });
+        console.log("3");
+        const productIndex = cart.products.findIndex(item => item.productId.toString() === productId);
+        console.log("4");
+        if (productIndex > -1) {
+          cart.products[productIndex].quantity = quantity;
+          await cart.save();
+          return cart;
+        } else {
+            throw new Error("Failed to create or update cart: " + error.message);
+        }
+      } catch (error) {
+        throw new Error("Failed to create or update cart: " + error.message);
+      }
+};
+
+const deleteProductCart = async (data) => {
     const { userId, productId } = data;
 
     try {
-        const cart = await cartModel.Cart.findOne({ userId });
-
-        if (!cart) {
-            throw new Error("Cart not found");
-        }
-
-        if (productId) {
-            cart.products = cart.products.filter(p => p.productId !== productId);
-        } else {
-            await cartModel.Cart.deleteOne({ userId });
-            return { message: "Cart deleted successfully" };
-        }
-
-        const updatedCart = await cart.save();
-        return updatedCart;
-    } catch (error) {
-        throw new Error("Failed to delete product/cart: " + error.message);
-    }
+        const cart = await cartModel.Cart.findOne({ userId: userId });
+        
+        if (!cart) return res.status(404).json({ message: 'Cart not found' });
+        
+        cart.products = cart.products.filter(item => item.productId.toString() !== productId);
+        await cart.save();
+    
+        return cart;
+      } catch (error) {
+        throw new Error("Failed to create or update cart: " + error.message);
+      }
 };
 
 module.exports = {
     getCart, 
     getCartProducts,
     createCart,
-    deleteCart
+    productQuantityUpdate,
+    deleteProductCart
 };

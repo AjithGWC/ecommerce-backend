@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Product } = require("./productModel");
 const Schema = mongoose.Schema;
 
 const CartSchema = new Schema(
@@ -12,6 +13,7 @@ const CartSchema = new Schema(
             {
                 productId:{
                     type: String,
+                    ref: "Product",
                     required: true
                 },
                 quantity:{
