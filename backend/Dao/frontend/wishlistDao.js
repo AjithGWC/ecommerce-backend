@@ -26,10 +26,8 @@ const addWishlist = async (data) => {
                 products: [{ productId: productId }]
             });
         } else {
-            console.log(wishlist);
             
             const productIndex = wishlist.products.findIndex(p => p.productId.equals(productId));
-            console.log(productIndex);
             
             if (productIndex === -1) {
                 wishlist.products.push({productId});
@@ -39,7 +37,6 @@ const addWishlist = async (data) => {
         }
 
         const updatedWishlist = await wishlist.save();
-        console.log(updatedWishlist);
         return updatedWishlist;
     } catch (err) {
         throw new Error("Failed to fetch wishlist");
