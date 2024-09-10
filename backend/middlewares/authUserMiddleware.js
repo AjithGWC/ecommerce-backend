@@ -3,7 +3,6 @@ const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 const authenticateAdmin = (req, res, next) => {
     let token = req.cookies.token || req.headers['authorization'];
-console.log("sdf");
 
     if (!token) {
         return res.status(401).json({ error: "No active token." });

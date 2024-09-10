@@ -5,9 +5,8 @@ const getProducts = async(req, res, next) => {
     next();
 };
 
-const createProduct = async(req, res, next) => {
+const createProduct = async(req, res, next) => {    
     const { Name, description, image, categoryId, sellerId, currency, price, quantity } = req.body;
-    console.log(req.body);
 
     const requiredFields = [
         { field: Name, name: 'Name' },
@@ -61,6 +60,7 @@ const updateProduct = async(req, res, next) => {
     const requiredFields = [
         { field: id, name: 'id' },
         { field: Name, name: 'Name' },
+        { field: description, name: 'description' },
         { field: image, name: 'image' },
         { field: categoryId, name: 'categoryId' },
         { field: sellerId, name: 'sellerId' },
@@ -70,7 +70,7 @@ const updateProduct = async(req, res, next) => {
     ];
 
     for (let { field, name } of requiredFields) {
-        if (!field || field.trim() === "") {
+        if (!field) {
             return res.status(400).json({ error: `${name} is required and cannot be empty.` });
         }
     }
@@ -87,7 +87,7 @@ const updateProduct = async(req, res, next) => {
         return res.status(400).json({ error: "sellerId must be a 24-character hex string, a 12-byte Uint8Array, or an integer." });
     }
 
-    const existingProduct = await Product.findOne({
+    const existingProduct = await productModel.Product.findOne({
         Name,
         categoryId,
         sellerId,
@@ -103,7 +103,6 @@ const updateProduct = async(req, res, next) => {
 
 const deleteProduct = async(req, res, next) => {
     const { id } = req.params;
-    console.log(id);
     
     if(!id || id.trim() === ""){
         return res.status(400).json({ error: `id is required and cannot be empty.` });

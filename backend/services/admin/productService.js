@@ -13,7 +13,6 @@ const getProductsService = async(req, res, next) => {
 const createProductService = async(req, res, next) => {
     try{
         const { Name, description, image, categoryId, sellerId, currency, price, quantity, selledQuantity } = req.body;
-        console.log(req.body);
 
         const data = await productDao.createProduct({ Name, description, image, categoryId, sellerId, currency, price, quantity, selledQuantity });
         return res.status(201).json(data);

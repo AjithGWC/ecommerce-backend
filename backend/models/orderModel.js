@@ -8,11 +8,29 @@ const OrderSchema = new Schema(
             ref: "User",
             required: true
         },
-        currency:{
-            type: String,
+        sellerId:{
+            type: Schema.Types.ObjectId,
+            ref: "Seller",
             required: true
         },
-        orderAmount:{
+        products:[
+            {
+                productId:{
+                    type: String,
+                    ref: "Product",
+                    required: true
+                },
+                quantity:{
+                    type: Number,
+                    required: true
+                }
+            }
+        ],
+        shippingAmount:{
+            type: Number,
+            required: true
+        },
+        orderTotalAmount:{
             type: Number,
             required: true
         },

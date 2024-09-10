@@ -5,7 +5,6 @@ const userLogin = async(req, res, next) => {
         const { email, password } = req.body;
 
         const data = await authDao.userLogin({ email, password });
-        console.log(data);
         
         if (data.success) {
             

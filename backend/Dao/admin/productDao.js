@@ -17,12 +17,9 @@ const createProduct = async(data) => {
 };
 
 const editProduct = async(id) => {
-    console.log(id);
     
     try {
-        const product = await productModel.Product.findOne({ _id: id });
-        console.log(product);
-        
+        const product = await productModel.Product.findOne({ _id: id });        
         return product;
     } catch (error) {
         console.log(error);
@@ -49,7 +46,6 @@ const updateProduct = async(data) => {
 const deleteProduct = async(data) => {
     try{
         const { id } = data;
-        console.log(id);
         
         const result  = await productModel.Product.findOneAndDelete({ _id: id });
         if (!result) {

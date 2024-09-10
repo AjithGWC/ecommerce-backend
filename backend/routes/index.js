@@ -15,6 +15,7 @@ const seller = require("../routes/admin/seller");
 const country = require("../routes/admin/countryCode");
 const cart = require("../routes/frontend/cart");
 const wishlist = require("../routes/frontend/wishlist");
+const order = require("../routes/frontend/order");
 
 const app = express();
 
@@ -39,13 +40,10 @@ app.use("/admin", seller);
 app.use("/admin", country);
 app.use("/", cart);
 app.use("/", wishlist);
+app.use("/", order);
 
 function connectToDB(){
-    mongoose.connect(MONGODB_URL,
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    }).then(()=>{
+    mongoose.connect(MONGODB_URL).then(()=>{
         app.listen(DB_SERVER, (err) => {
             if(err){
                 console.log("server failed");
