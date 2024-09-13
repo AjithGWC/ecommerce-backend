@@ -1,5 +1,23 @@
 const mongoose = require('mongoose');
 
+const getOrderByOrderId = async(req, res, next) => {
+    const { orderId } = req.params;
+
+    if (!orderId || !mongoose.Types.ObjectId.isValid(orderId)) {
+        return res.status(400).json({ error: "Invalid or missing user ID" });
+    }
+    next();
+};
+
+const getOrderByUser = async(req, res, next) => {
+    const { userId } = req.params;
+
+    if (!userId || userId.trim() === "" || !mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ error: "Invalid or missing user ID" });
+    }
+    next();
+};
+
 const createOrder = async(req, res, next) => {
     const { userId } = req.params;
     const { products, shipping, total } = req.body;
@@ -34,5 +52,7 @@ const createOrder = async(req, res, next) => {
 };
 
 module.exports = {
+    getOrderByOrderId,
+    getOrderByUser,
     createOrder
 }

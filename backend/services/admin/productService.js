@@ -26,6 +26,8 @@ const editUserService = async(req, res, next) => {
     try{
         const { id } = req.params;
         const data = await productDao.editProduct( id );
+        console.log(data);
+        
         return res.status(200).json(data);
     }catch(error){
         console.log(error);

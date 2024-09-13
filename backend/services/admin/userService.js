@@ -37,10 +37,14 @@ const editUser = async(req, res, next) => {
 const updateUser = async(req, res, next) => {
     try{
         const { id } = req.params;
-
         const { firstName, lastName, email, password, countryCode, phoneNumber, gender, image, address, district, state, country } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const data = await userDao.updateUser({ id, firstName, lastName, email, password: hashedPassword, countryCode, phoneNumber, gender, image, address, district, state, country });
+
+        let updateFields = { id, firstName, lastName, email, countryCode, phoneNumber, gender, image, address, district, state, country };
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            updateFields.password = hashedPassword;
+        }
+        const data = await userDao.updateUser(updateFields);
         return res.status(201).json(data);
     }catch(error){
         console.log(error);

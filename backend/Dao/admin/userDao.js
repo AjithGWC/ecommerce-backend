@@ -28,7 +28,6 @@ const editUser = async(id) => {
 };
 
 const updateUser = async(data) => {
-    console.log(data);
     const id = data.id;
     const updatedUser = await userModel.User.findOneAndUpdate(
         { _id: id },

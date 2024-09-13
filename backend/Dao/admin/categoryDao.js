@@ -16,7 +16,8 @@ const createCategoryDao = async(data) => {
     return{...datas._doc}
 };
 
-const editCategoryDao = async(id) => {
+const editCategoryDao = async(data) => {
+    const id = data;
     try {
         const user = await categoryModel.Category.findOne({ _id: id });
         return user;

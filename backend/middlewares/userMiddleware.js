@@ -43,7 +43,7 @@ const newUsers = async(req, res, next) => {
     ];
 
     for (let { field, name } of requiredFields) {
-        if (!field || field.trim() === "") {
+        if (!field ) {
             return res.status(400).json({ error: `${name} is required and cannot be empty.` });
         }
     }
@@ -68,15 +68,13 @@ const editUser = async(req, res, next) => {
 };
 
 const updateUser = async(req, res, next) => {
-    const { firstName, lastName, email, password, countryCode, phoneNumber, gender, address, district, state, country } = req.body;
+    const { firstName, lastName, email, countryCode, phoneNumber, gender, address, district, state, country } = req.body;
     const { id } = req.params;
-    console.log(id);
 
     const allowedFields = [
         'firstName',
         'lastName',
         'email',
-        'password',
         'countryCode',
         'phoneNumber',
         'gender',
@@ -98,7 +96,6 @@ const updateUser = async(req, res, next) => {
         { field: firstName, name: 'firstName' },
         { field: lastName, name: 'lastName' },
         { field: email, name: 'email' },
-        { field: password, name: 'password' },
         { field: countryCode, name: 'countryCode' },
         { field: phoneNumber, name: 'phoneNumber' },
         { field: gender, name: 'gender' },
@@ -109,17 +106,13 @@ const updateUser = async(req, res, next) => {
     ];
 
     for (let { field, name } of requiredFields) {
-        if (!field || field.trim() === "") {
+        if (!field ) {
             return res.status(400).json({ error: `${name} is required and cannot be empty.` });
         }
     }
 
     if (!validator.isEmail(email)) {
         return res.status(400).json({ error: "Invalid email format." });
-    }
-
-    if (password.length < 8) {
-        return res.status(400).json({ error: "Password must be at least 8 characters long." });
     }
 
     next();

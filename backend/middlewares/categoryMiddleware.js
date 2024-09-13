@@ -12,7 +12,7 @@ const createcategoryMiddleware = async(req, res, next) => {
     ];
 
     for (let { field, name } of requiredFields) {
-        if (!field || field.trim() === "") {
+        if (!field ) {
             return res.status(400).json({ error: `${name} is required and cannot be empty.` });
         }
     }
@@ -39,7 +39,7 @@ const updateCategoryMiddleware = async(req, res, next) => {
     ];
 
     for (let { field, name } of requiredFields) {
-        if (!field || field.trim() === "") {
+        if (!field ) {
             return res.status(400).json({ error: `${name} is required and cannot be empty.` });
         }
     }
