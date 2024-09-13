@@ -22,7 +22,7 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://ecom-frontend-sable-three.vercel.app/',
     credentials: true,
 };
 
