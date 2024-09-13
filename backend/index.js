@@ -6,16 +6,16 @@ const cookieParser = require('cookie-parser');
 const MONGODB_URL = process.env.MONGODB_URL;
 const DB_SERVER = process.env.DB_SERVER;
 
-const users = require("../routes/admin/user");
-const roles = require("../routes/admin/roles");
-const auth = require("../routes/frontend/auth");
-const product = require("../routes/admin/product");
-const category = require("../routes/admin/category");
-const seller = require("../routes/admin/seller");
-const country = require("../routes/admin/countryCode");
-const cart = require("../routes/frontend/cart");
-const wishlist = require("../routes/frontend/wishlist");
-const order = require("../routes/frontend/order");
+const users = require("./routes/admin/user");
+const roles = require("./routes/admin/roles");
+const auth = require("./routes/frontend/auth");
+const product = require("./routes/admin/product");
+const category = require("./routes/admin/category");
+const seller = require("./routes/admin/seller");
+const country = require("./routes/admin/countryCode");
+const cart = require("./routes/frontend/cart");
+const wishlist = require("./routes/frontend/wishlist");
+const order = require("./routes/frontend/order");
 
 const app = express();
 
