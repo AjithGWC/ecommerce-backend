@@ -67,6 +67,9 @@ const createCart = async (data) => {
         }
 
         const updatedCart = await cart.save();
+        if(updatedCart =="" || updatedCart == null){
+            updatedCart = "No Cart Available";
+        }
         return updatedCart;
     } catch (error) {
         throw new Error("Failed to create or update cart: " + error.message);
