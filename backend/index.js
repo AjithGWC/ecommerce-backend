@@ -21,12 +21,6 @@ const app = express();
 
 const cors = require('cors');
 app.use(cors());
-// const corsOptions = {
-//     origin: '*',
-//     credentials: true,
-// };
-
-// app.use(cors(corsOptions));
 app.use(cookieParser());
 
 app.use(express.json());
