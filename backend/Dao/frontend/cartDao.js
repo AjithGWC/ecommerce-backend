@@ -106,12 +106,16 @@ const deleteProductCart = async (data) => {
         if (!cart) return res.status(404).json({ message: 'Cart not found' });
         
         cart.products = cart.products.filter(item => item.productId.toString() !== productId);
+
+        if (cart.products.length === 0) {
+            await cartModel.Cart.deleteOne({ userId }); 
+        }
+
         await cart.save();
-    
         return cart;
-      } catch (error) {
+    } catch (error) {
         throw new Error("Failed to create or update cart: " + error.message);
-      }
+    }
 };
 
 module.exports = {
