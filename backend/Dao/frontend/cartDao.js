@@ -1,17 +1,17 @@
 const cartModel = require("../../models/cartModel");
 const productModel = require("../../models/productModel");
 
-const getCart = async(data) => {
+const getCart = async (data) => {
     try {
         const userId = data.userId;
         const cart = await cartModel.Cart.findOne({ userId });
 
         if (!cart || cart.products.length === 0) {
-            throw new Error("No cart items found");
+            return { data: "No cart items found" };
         }
-        return cart;
+        return { message: "Cart retrieved successfully", data: cart };
     } catch (error) {
-        throw new Error("Failed to fetch cart");
+        return { message: "Failed to fetch cart", error: error.message };
     }
 };
 
